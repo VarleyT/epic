@@ -226,7 +226,7 @@ function generateHtml(current, upcoming) {
 
     const distDir = path.join(__dirname, 'public');
     if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
-    fs.writeFileSync(path.join(distDir, 'index.html'), html);
+    fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
     console.log("✅ index.html 已生成，倒计时和文案已更新。");
 }
 
