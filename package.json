@@ -1,0 +1,24 @@
+{
+  "name": "epic",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VarleyT/epic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VarleyT/epic/issues"
+  },
+  "homepage": "https://github.com/VarleyT/epic#readme",
+  "dependencies": {
+    "axios": "^1.13.4",
+    "dayjs": "^1.11.19"
+  },
+  "description": ""
+}
