@@ -148,7 +148,7 @@ function generateHtml(current, upcoming) {
                 截止时间: ${dayjs(mainGame.endTime).format('YYYY年MM月DD日 HH:mm:ss')} (UTC+8)
             </div>
             
-            <h1 class="text-6xl md:text-9xl font-black mb-8 tracking-tighter uppercase leading-none">${mainGame.title}</h1>、
+            <h1 class="text-6xl md:text-9xl font-black mb-8 tracking-tighter uppercase leading-none">${mainGame.title}</h1>
             <p class="text-zinc-400 text-lg md:text-xl mb-6 max-w-3xl mx-auto leading-relaxed font-light">${mainGame.description}</p>
             
             <div class="glass-btn rounded-3xl p-8 mb-12 inline-block">
