@@ -126,12 +126,6 @@ function generateHtml(current, upcoming) {
     </style>
 </head>
 <body>
-    <nav class="absolute top-0 w-full z-50 p-8">
-        <div class="container mx-auto flex items-center gap-3">
-            <img src="favicon.png" class="w-8 h-8 opacity-80" onerror="this.style.display='none'">
-        </div>
-    </nav>
-
     <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 -z-10">
             <img src="${mainGame.imageUrl}" class="w-full h-full object-cover opacity-90 scale-105">
