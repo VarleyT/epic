@@ -8,8 +8,9 @@ on:
     branches:
       - main
     paths:
-      - 'fetch.js'
+      - 'fetcher.js'
       - 'package.json'
+      - 'favicon.png'
       - '.github/workflows/deploy.yml'
 
 jobs:
