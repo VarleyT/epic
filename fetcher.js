@@ -16,7 +16,7 @@ async function fetchEpicData() {
         const now = dayjs();
         const elements = response.data.data.Catalog.searchStore.elements;
 
-        // 1. 处理当前免费游戏 (逻辑参考 index.ts)
+        // 1. 处理当前免费游戏
         const currentItems = await Promise.all(
             elements.filter(item => 
                 item.promotions?.promotionalOffers?.length > 0 &&
@@ -224,7 +224,9 @@ function generateHtml(current, upcoming) {
 </body>
 </html>`;
 
-    fs.writeFileSync('index.html', htmlContent);
+    const distDir = path.join(__dirname, 'public');
+    if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
+    fs.writeFileSync(path.join(distDir, 'index.html'), html);
     console.log("✅ index.html 已生成，倒计时和文案已更新。");
 }
 
