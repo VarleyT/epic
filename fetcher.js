@@ -228,6 +228,10 @@ function generateHtml(current, upcoming) {
     const distDir = path.join(__dirname, 'public');
     if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
     fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
+    const faviconFile = 'favicon.png';
+    if (fs.existsSync(faviconFile)) {
+        fs.copyFileSync(faviconFile, path.join(distDir, 'favicon.png'));
+    }
     console.log("✅ index.html 已生成，倒计时和文案已更新。");
 }
 
