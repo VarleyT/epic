@@ -7,6 +7,7 @@ on:
   push:
     paths:
       - 'fetcher.js'
+      - 'template.js'
       - 'package.json'
       - 'favicon.png'
       - '.github/workflows/deploy.yml'

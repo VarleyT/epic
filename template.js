@@ -1,0 +1,140 @@
+const dayjs = require('dayjs');
+
+module.exports = function generateHtmlTemplate(mainGame, upcomingGames) {
+    // 在模板内部生成预告游戏的 HTML 片段
+    const upcomingHtml = upcomingGames.map(game => `
+        <div class="bg-zinc-900/40 border border-white/5 rounded-2xl md:rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-all duration-500 flex flex-col">
+            <div class="relative h-40 md:h-44 overflow-hidden">
+                <img src="${game.imageUrl}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy">
+                <div class="absolute top-3 left-3">
+                    <span class="px-2 py-0.5 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-bold uppercase tracking-widest text-blue-400 border border-blue-400/20">下周预告</span>
+                </div>
+            </div>
+            <div class="p-5 md:p-6 flex-1 flex flex-col">
+                <h3 class="font-bold text-base md:text-lg mb-2 text-zinc-100 line-clamp-1">${game.title}</h3>
+                <p class="text-zinc-500 text-[11px] md:text-xs line-clamp-2 mb-4 leading-relaxed flex-1">${game.description || '暂无详细描述'}</p>
+                <div class="pt-4 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-zinc-400">
+                    <span class="uppercase opacity-50 font-sans">开启时间</span>
+                    <span>${dayjs(game.startTime).format('MM月DD日 HH:mm')}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+
+    return `<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EPIC 每周免费游戏</title>
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap');
+        body { background: #050505; color: white; font-family: 'Noto Sans SC', sans-serif; overflow-x: hidden; }
+        .hero-mask { background: linear-gradient(to top, #050505 0%, rgba(5,5,5,0.7) 50%, rgba(5,5,5,0.3) 100%); }
+        .glass-btn { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+        .text-glow { text-shadow: 0 0 30px rgba(59, 130, 246, 0.4); }
+    </style>
+</head>
+<body>
+    <section class="relative min-h-[90vh] md:h-screen w-full flex items-center justify-center overflow-hidden px-4 py-20">
+        <div class="absolute inset-0 -z-10">
+            <img src="${mainGame.imageUrl}" class="w-full h-full object-cover opacity-60 md:opacity-90 scale-110 blur-[2px] md:blur-0 shadow-inner">
+            <div class="absolute inset-0 hero-mask"></div>
+        </div>
+
+        <div class="text-center w-full max-w-5xl mx-auto">
+            <div class="flex flex-wrap justify-center gap-3 mb-6 md:mb-8">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-blue-600 rounded-full text-[10px] md:text-[11px] font-black uppercase tracking-widest shadow-lg shadow-blue-600/20">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-100 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    现在免费
+                </div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-zinc-800/80 backdrop-blur-md border border-white/10 rounded-full text-[10px] md:text-[11px] font-medium tracking-tight">
+                    截止: ${dayjs(mainGame.endTime).format('MM月DD日 HH:mm')}
+                </div>
+            </div>
+            
+            <h1 class="text-4xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase leading-[1.1] text-glow px-2">
+                ${mainGame.title}
+            </h1>
+            
+            <p class="text-zinc-400 text-sm md:text-xl mb-8 max-w-2xl mx-auto leading-relaxed font-light line-clamp-3 md:line-clamp-none px-4">
+                ${mainGame.description}
+            </p>
+            
+            <div class="glass-btn rounded-2xl md:rounded-3xl p-4 md:p-8 mb-10 inline-block w-full max-w-sm md:max-w-none">
+                <p class="text-zinc-500 text-[9px] md:text-[10px] uppercase mb-3 tracking-[0.2em]">距离领取结束仅剩</p>
+                <div id="timer" class="text-2xl md:text-6xl font-black text-blue-500 flex gap-3 md:gap-8 justify-center items-baseline">
+                    <span>--<small class="text-[10px] md:text-xl ml-1 text-zinc-600">D</small></span>
+                    <span>--<small class="text-[10px] md:text-xl ml-1 text-zinc-600">H</small></span>
+                    <span>--<small class="text-[10px] md:text-xl ml-1 text-zinc-600">M</small></span>
+                    <span>--<small class="text-[10px] md:text-xl ml-1 text-zinc-600">S</small></span>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 px-6">
+                <a href="${mainGame.link}" target="_blank" class="w-full sm:w-auto bg-blue-600 text-white px-12 py-4 md:py-6 rounded-xl md:rounded-2xl font-black text-base md:text-lg hover:bg-blue-500 transition-all shadow-xl shadow-blue-600/30 active:scale-95">
+                    立即领取
+                </a>
+                <a href="#upcoming" class="w-full sm:w-auto glass-btn text-white px-8 py-4 md:py-6 rounded-xl md:rounded-2xl font-bold text-sm md:text-base hover:bg-white/10 transition-all">
+                    查看下周预告
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="upcoming" class="container mx-auto px-6 py-20 md:py-32">
+        <div class="flex items-center gap-4 md:gap-6 mb-12">
+            <h2 class="text-2xl md:text-4xl font-black italic uppercase tracking-tighter">未来预告 / Upcoming</h2>
+            <div class="h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent"></div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10">
+            ${upcomingHtml || '<p class="text-zinc-500">暂无预告信息</p>'}
+        </div>
+    </section>
+
+    <footer class="py-16 border-t border-white/5 text-center px-6">
+        <p class="text-zinc-400 text-xs font-bold tracking-widest mb-3">
+            Github <a href="https://github.com/VarleyT" target="_blank" class="text-blue-500 hover:text-blue-400 transition-colors underline underline-offset-4">@VarleyT</a>
+        </p>
+        <p class="text-zinc-600 text-[9px] uppercase tracking-[0.2em] leading-loose">
+            Powered by GitHub Actions & Pages<br class="md:hidden"> 
+            © ${new Date().getFullYear()} EPIC FREE GAMES
+        </p>
+    </footer>
+
+    <script>
+        function startCountdown(endTime) {
+            const target = dayjs(endTime);
+            const timerEl = document.getElementById('timer');
+            const update = () => {
+                const now = dayjs();
+                const diff = target.diff(now);
+                if (diff <= 0) {
+                    timerEl.innerHTML = "<span class='text-zinc-500 text-xl uppercase tracking-widest'>活动已结束</span>";
+                    return;
+                }
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+                const s = Math.floor((diff % 60000) / 1000);
+                const f = (n) => String(n).padStart(2,'0');
+                timerEl.innerHTML = \`
+                    <span>\${f(d)}<small class="text-[10px] md:text-xl ml-1 text-zinc-600 font-medium">D</small></span>
+                    <span>\${f(h)}<small class="text-[10px] md:text-xl ml-1 text-zinc-600 font-medium">H</small></span>
+                    <span>\${f(m)}<small class="text-[10px] md:text-xl ml-1 text-zinc-600 font-medium">M</small></span>
+                    <span>\${f(s)}<small class="text-[10px] md:text-xl ml-1 text-zinc-600 font-medium">S</small></span>
+                \`;
+            };
+            setInterval(update, 1000); update();
+        }
+        startCountdown('${mainGame.endTime}');
+    </script>
+</body>
+</html>`;
+}
