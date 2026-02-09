@@ -2,6 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const dayjs = require('dayjs');
+const generateHtmlTemplate = require('./template');
 
 // 基础配置
 const rootUrl = 'https://store.epicgames.com';
