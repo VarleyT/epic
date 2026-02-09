@@ -11,6 +11,7 @@ on:
       - 'fetcher.js'
       - 'package.json'
       - 'favicon.png'
+      - 'monthly.log'
       - '.github/workflows/deploy.yml'
 
 jobs:
