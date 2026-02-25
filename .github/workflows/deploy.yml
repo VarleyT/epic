@@ -5,10 +5,9 @@ on:
     - cron: '0 1 * * *'
   workflow_dispatch:
   push:
-    branches:
-      - main
     paths:
       - 'fetcher.js'
+      - 'template.js'
       - 'package.json'
       - 'favicon.png'
       - '.github/workflows/deploy.yml'

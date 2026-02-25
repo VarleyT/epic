@@ -2,6 +2,7 @@ const axios = require('axios');
 const fs = require('fs');
 const path = require('path');
 const dayjs = require('dayjs');
+const generateHtmlTemplate = require('./template');
 
 // 基础配置
 const rootUrl = 'https://store.epicgames.com';
@@ -354,13 +355,14 @@ function generateHtml(current, upcoming) {
 </html>`;
 
     const distDir = path.join(__dirname, 'public');
-    if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
+    if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);   
     fs.writeFileSync(path.join(distDir, 'index.html'), htmlContent);
+    
     const faviconFile = 'favicon.png';
     if (fs.existsSync(faviconFile)) {
         fs.copyFileSync(faviconFile, path.join(distDir, 'favicon.png'));
     }
-    console.log("✅ index.html 已生成，倒计时和文案已更新。");
+    console.log("✅ 响应式页面已生成，数据已同步。");
 }
 
 fetchEpicData();
