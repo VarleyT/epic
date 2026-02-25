@@ -88,7 +88,14 @@ async function processGameItem(item, isCurrent) {
 }
 
 function generateHtml(current, upcoming) {
-    const mainGame = current[0] || { title: "暂无活动", description: "请稍后再来查看", imageUrl: "", link: "#" };
+    const gamesData = current.length > 0 ? current : [{ 
+        title: "暂无活动", 
+        description: "请稍后再来查看", 
+        imageUrl: "", 
+        link: "#",
+        endTime: dayjs().add(7, 'day').toISOString() 
+    }];
+    const mainGame = gamesData[0];
     
     const upcomingHtml = upcoming.map(game => `
         <div class="bg-zinc-900/40 border border-white/5 rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-all duration-500">
@@ -123,52 +130,90 @@ function generateHtml(current, upcoming) {
         body { background: #050505; color: white; font-family: 'Noto Sans SC', sans-serif; }
         .hero-mask { background: linear-gradient(to top, #050505 0%, rgba(5,5,5,0.8) 40%, transparent 100%); }
         .glass-btn { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .slide-nav-btn { cursor: pointer; opacity: 0.6; transition: all 0.3s; }
+        .slide-nav-btn:hover { opacity: 1; }
+        .slide-nav-btn svg { transition: transform 0.3s; }
+        .slide-nav-btn:hover svg { transform: scale(1.1); }
+        .progress-bar { height: 100%; background: white; width: 0%; transition: width linear; }
+        .indicator-track { height: 6px; background: rgba(255,255,255,0.2); border-radius: 3px; overflow: hidden; cursor: pointer; transition: all 0.3s; }
+        .indicator-active { width: 60px; }
+        .indicator-inactive { width: 16px; }
+        html { scroll-behavior: smooth; }
+        #upcoming { scroll-margin-top: 1rem; }
     </style>
 </head>
 <body>
-    <section class="relative h-screen w-full flex items-center justify-center overflow-hidden">
+    <section class="relative min-h-screen w-full flex items-center justify-center py-20 overflow-hidden">
         <div class="absolute inset-0 -z-10">
-            <img src="${mainGame.imageUrl}" class="w-full h-full object-cover opacity-90 scale-105">
+            <img id="bg-image" src="${mainGame.imageUrl}" class="w-full h-full object-cover opacity-90 scale-105 transition-opacity duration-700">
             <div class="absolute inset-0 hero-mask"></div>
         </div>
 
-        <div class="text-center px-6 max-w-5xl">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 rounded-full text-[11px] font-black uppercase tracking-[0.2em] mb-8 shadow-xl shadow-blue-600/20">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-100 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                </span>
-                现在免费
+        <div class="text-center px-6 max-w-5xl relative z-10">
+            <!-- Navigation Arrows -->
+            ${gamesData.length > 1 ? `
+            <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-20 p-4 slide-nav-btn text-white/50 hover:text-white hidden md:block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </button>
+            <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-20 p-4 slide-nav-btn text-white/50 hover:text-white hidden md:block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </button>
+            ` : ''}
+
+            <!-- Indicators -->
+            ${gamesData.length > 1 ? `
+            <div class="flex justify-center gap-3 mb-8">
+                ${gamesData.map((_, idx) => `
+                    <div onclick="goToSlide(${idx})" class="indicator-track ${idx === 0 ? 'indicator-active' : 'indicator-inactive'}" id="indicator-${idx}">
+                        <div class="progress-bar" id="progress-${idx}"></div>
+                    </div>
+                `).join('')}
             </div>
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-green-600 rounded-full text-[11px] font-black uppercase tracking-[0.1em] mb-8 shadow-xl shadow-green-600/20">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-100 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-                </span>
-                截止时间: ${dayjs(mainGame.endTime).format('YYYY年MM月DD日 HH:mm:ss')} (UTC+8)
+            ` : ''}
+
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-600 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-xl shadow-blue-600/20">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-100 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    现在免费
+                </div>
+
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-green-600 rounded-full text-[10px] font-black uppercase tracking-[0.1em] shadow-xl shadow-green-600/20">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-100 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+                    </span>
+                    <span id="end-time-text">截止时间: ${dayjs(mainGame.endTime).format('YYYY年MM月DD日 HH:mm:ss')}</span>
+                </div>
             </div>
             
-            <h1 class="text-6xl md:text-9xl font-black mb-8 tracking-tighter uppercase leading-none">${mainGame.title}</h1>
-            <p class="text-zinc-400 text-lg md:text-xl mb-6 max-w-3xl mx-auto leading-relaxed font-light">${mainGame.description}</p>
+            <h1 id="game-title" class="text-4xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase leading-none transition-all duration-500">${mainGame.title}</h1>
+            <p id="game-desc" class="text-zinc-400 text-sm md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed font-light transition-all duration-500 line-clamp-3 md:line-clamp-none">${mainGame.description}</p>
             
-            <div class="glass-btn rounded-3xl p-8 mb-12 inline-block">
+            <div class="glass-btn rounded-3xl p-6 md:p-8 mb-10 inline-block">
                 <p class="text-zinc-500 text-[10px] uppercase mb-4 tracking-[0.3em]">距离活动结束仅剩</p>
-                <div id="timer" class="text-3xl md:text-6xl font-black text-blue-500 flex gap-4 md:gap-8 justify-center items-baseline">
-                    <span>--<small class="text-sm md:text-xl ml-1 text-zinc-600">天</small></span>
-                    <span>--<small class="text-sm md:text-xl ml-1 text-zinc-600">时</small></span>
-                    <span>--<small class="text-sm md:text-xl ml-1 text-zinc-600">分</small></span>
-                    <span>--<small class="text-sm md:text-xl ml-1 text-zinc-600">秒</small></span>
+                <div id="timer" class="text-2xl md:text-6xl font-black text-blue-500 flex gap-4 md:gap-8 justify-center items-baseline">
+                    <span>--<small class="text-xs md:text-xl ml-1 text-zinc-600">天</small></span>
+                    <span>--<small class="text-xs md:text-xl ml-1 text-zinc-600">时</small></span>
+                    <span>--<small class="text-xs md:text-xl ml-1 text-zinc-600">分</small></span>
+                    <span>--<small class="text-xs md:text-xl ml-1 text-zinc-600">秒</small></span>
                 </div>
             </div>
 
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                <a href="${mainGame.link}" target="_blank" class="w-full md:w-auto bg-blue-600 text-white px-16 py-6 rounded-2xl font-black text-lg hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/40 hover:-translate-y-1">立即领取</a>
-                <a href="#upcoming" class="w-full md:w-auto glass-btn text-white px-10 py-6 rounded-2xl font-bold hover:bg-white/10 transition-all">查看预告</a>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
+                <a id="claim-btn" href="${mainGame.link}" target="_blank" class="w-full md:w-auto bg-blue-600 text-white px-12 py-5 md:px-16 md:py-6 rounded-2xl font-black text-base md:text-lg hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/40 hover:-translate-y-1">立即领取</a>
+                <a href="#upcoming" class="w-full md:w-auto glass-btn text-white px-8 py-5 md:px-10 md:py-6 rounded-2xl font-bold text-sm md:text-base hover:bg-white/10 transition-all">查看预告</a>
             </div>
         </div>
     </section>
 
-    <section id="upcoming" class="container mx-auto px-6 py-32">
+    <section id="upcoming" class="container mx-auto px-6 pt-12 pb-32">
         <div class="flex items-center gap-6 mb-16">
             <h2 class="text-4xl font-black italic uppercase tracking-tighter">未来预告 / Upcoming</h2>
             <div class="h-px flex-1 bg-gradient-to-r from-zinc-800 to-transparent"></div>
@@ -188,7 +233,91 @@ function generateHtml(current, upcoming) {
     </footer>
 
     <script>
+        const games = ${JSON.stringify(gamesData)};
+        let currentIndex = 0;
+        let timerInterval;
+        let slideInterval;
+        const SLIDE_DURATION = 8000;
+
+        function updateSlide(index) {
+            const game = games[index];
+            
+            // Update Text Content with fade effect simulation
+            const titleEl = document.getElementById('game-title');
+            const descEl = document.getElementById('game-desc');
+            
+            titleEl.style.opacity = '0';
+            descEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                titleEl.innerText = game.title;
+                descEl.innerText = game.description || '';
+                titleEl.style.opacity = '1';
+                descEl.style.opacity = '1';
+            }, 200);
+
+            document.getElementById('claim-btn').href = game.link;
+            document.getElementById('end-time-text').innerText = '截止时间: ' + dayjs(game.endTime).format('YYYY年MM月DD日 HH:mm:ss');
+            
+            // Update Background
+            const bgImg = document.getElementById('bg-image');
+            bgImg.style.opacity = '0';
+            setTimeout(() => {
+                bgImg.src = game.imageUrl;
+                bgImg.onload = () => { bgImg.style.opacity = '0.9'; };
+            }, 300);
+
+            // Update Indicators
+            if (games.length > 1) {
+                document.querySelectorAll('[id^="indicator-"]').forEach((el, i) => {
+                    const isCurrent = i === index;
+                    el.className = "indicator-track " + (isCurrent ? 'indicator-active' : 'indicator-inactive');
+                    const progress = el.querySelector('.progress-bar');
+                    progress.style.transition = 'none';
+                    progress.style.width = '0%';
+                    
+                    if (isCurrent) {
+                        // Force reflow
+                        progress.offsetHeight;
+                        progress.style.transition = "width " + SLIDE_DURATION + "ms linear";
+                        progress.style.width = '100%';
+                    }
+                });
+            }
+
+            // Restart Timer
+            startCountdown(game.endTime);
+        }
+
+        function nextSlide() {
+            if (games.length <= 1) return;
+            currentIndex = (currentIndex + 1) % games.length;
+            updateSlide(currentIndex);
+            resetSlideTimer();
+        }
+
+        function prevSlide() {
+            if (games.length <= 1) return;
+            currentIndex = (currentIndex - 1 + games.length) % games.length;
+            updateSlide(currentIndex);
+            resetSlideTimer();
+        }
+
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlide(currentIndex);
+            resetSlideTimer();
+        }
+
+        function resetSlideTimer() {
+            if (games.length > 1) {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, SLIDE_DURATION);
+            }
+        }
+
         function startCountdown(endTime) {
+            if (timerInterval) clearInterval(timerInterval);
             const target = dayjs(endTime);
             const timerEl = document.getElementById('timer');
             
@@ -211,10 +340,15 @@ function generateHtml(current, upcoming) {
                     <span>\${String(s).padStart(2,'0')}<small class="text-sm md:text-xl ml-1 text-zinc-600">秒</small></span>
                 \`;
             };
-            setInterval(update, 1000);
+            timerInterval = setInterval(update, 1000);
             update();
         }
-        startCountdown('${mainGame.endTime}');
+        
+        // Initial setup
+        updateSlide(0);
+        if (games.length > 1) {
+            resetSlideTimer();
+        }
     </script>
 </body>
 </html>`;
