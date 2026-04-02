@@ -58,6 +58,10 @@
                         <div class="progress-bar" id="progress-1"></div>
                     </div>
                 
+                    <div onclick="goToSlide(2)" class="indicator-track indicator-inactive" id="indicator-2">
+                        <div class="progress-bar" id="progress-2"></div>
+                    </div>
+                
             </div>
             
 
@@ -136,7 +140,7 @@
     </footer>
 
     <script>
-        const games = [{"title":"Hyper Echelon","description":"The Cyan Galaxy is in peril! Your trusty little star fighter and rag tag squad of wingmen are the only hope against the evil EXODON! Level up from a pea shooter to an offensive powerhouse as you engage in frantic combat across many wondrous locales.","imageUrl":"https://cdn1.epicgames.com/spt-assets/866f5f0834324794a87759b5f4854636/hyper-echelon-13b9q.png","link":"https://store.epicgames.com/zh-CN/p/hyper-echelon-2d23ff","endTime":"2026-04-02T15:00:00.000Z","startTime":"2026-03-26T15:00:00.000Z"},{"title":"Havendock","description":"在这个温暖舒适的殖民模拟游戏里好好建设自己的家园吧。为漂流者们建造一个避难所，管理资源，在海上享受美好的每一天。\n带领你的小镇发展为文明社会！","imageUrl":"https://cdn1.epicgames.com/spt-assets/180018125def4cbabef241f199a79f35/havendock-r2ivl.png","link":"https://store.epicgames.com/zh-CN/p/havendock-64983e","endTime":"2026-04-02T15:00:00.000Z","startTime":"2026-03-26T15:00:00.000Z"}];
+        const games = [{"title":"Hyper Echelon","description":"The Cyan Galaxy is in peril! Your trusty little star fighter and rag tag squad of wingmen are the only hope against the evil EXODON! Level up from a pea shooter to an offensive powerhouse as you engage in frantic combat across many wondrous locales.","imageUrl":"https://cdn1.epicgames.com/spt-assets/866f5f0834324794a87759b5f4854636/hyper-echelon-13b9q.png","link":"https://store.epicgames.com/zh-CN/p/hyper-echelon-2d23ff","endTime":"2026-04-02T15:00:00.000Z","startTime":"2026-03-26T15:00:00.000Z"},{"title":"Havendock","description":"在这个温暖舒适的殖民模拟游戏里好好建设自己的家园吧。为漂流者们建造一个避难所，管理资源，在海上享受美好的每一天。\n带领你的小镇发展为文明社会！","imageUrl":"https://cdn1.epicgames.com/spt-assets/180018125def4cbabef241f199a79f35/havendock-r2ivl.png","link":"https://store.epicgames.com/zh-CN/p/havendock-64983e","endTime":"2026-04-02T15:00:00.000Z","startTime":"2026-03-26T15:00:00.000Z"},{"title":"TOMAK : Save the Earth Regeneration","description":"The legendary cult hit \"Tomak: Save the Earth\" arrives on the Epic Games Store!\nNurture Evian, the Goddess of Love—trapped in a flowerpot—and save humanity from destruction. From divine ascension to total annihilation, every choice you make leads to a different destiny.","imageUrl":"https://cdn1.epicgames.com/spt-assets/603c0097f96047c38bc199331b5cf95b/tomak--save-the-earth-regeneration-1cvou.png","link":"https://store.epicgames.com/zh-CN/p/tomak-save-the-earth-regeneration-c1207c","endTime":"2026-04-16T15:00:00.000Z","startTime":"2026-04-02T00:00:00.000Z"}];
         let currentIndex = 0;
         let timerInterval;
         let slideInterval;
