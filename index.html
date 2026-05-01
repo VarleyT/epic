@@ -27,15 +27,38 @@
 <body>
     <section class="relative min-h-screen w-full flex items-center justify-center py-20 overflow-hidden">
         <div class="absolute inset-0 -z-10">
-            <img id="bg-image" src="https://cdn1.epicgames.com/spt-assets/df87b66c9f3042ac83311bdc9b442884/doomblade-120wd.jpg" class="w-full h-full object-cover opacity-90 scale-105 transition-opacity duration-700">
+            <img id="bg-image" src="https://cdn1.epicgames.com/spt-assets/69576a28f7154fe9a0dce97508da5163/firestone-online-idle-rpg-1xeuq.png" class="w-full h-full object-cover opacity-90 scale-105 transition-opacity duration-700">
             <div class="absolute inset-0 hero-mask"></div>
         </div>
 
         <div class="text-center px-6 max-w-5xl relative z-10">
             <!-- Navigation Arrows -->
             
+            <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-20 p-4 slide-nav-btn text-white/50 hover:text-white hidden md:block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                </svg>
+            </button>
+            <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-20 p-4 slide-nav-btn text-white/50 hover:text-white hidden md:block">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </button>
+            
 
             <!-- Indicators -->
+            
+            <div class="flex justify-center gap-3 mb-8">
+                
+                    <div onclick="goToSlide(0)" class="indicator-track indicator-active" id="indicator-0">
+                        <div class="progress-bar" id="progress-0"></div>
+                    </div>
+                
+                    <div onclick="goToSlide(1)" class="indicator-track indicator-inactive" id="indicator-1">
+                        <div class="progress-bar" id="progress-1"></div>
+                    </div>
+                
+            </div>
             
 
             <div class="flex flex-wrap justify-center gap-4 mb-8">
@@ -52,12 +75,12 @@
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-100 opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                     </span>
-                    <span id="end-time-text">截止时间: 2026年04月30日 15:00:00</span>
+                    <span id="end-time-text">截止时间: 2026年05月07日 15:00:00</span>
                 </div>
             </div>
             
-            <h1 id="game-title" class="text-4xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase leading-none transition-all duration-500">DOOMBLADE</h1>
-            <p id="game-desc" class="text-zinc-400 text-sm md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed font-light transition-all duration-500 line-clamp-3 md:line-clamp-none">Deep underground, Gloom Girl discovers DOOMBLADE, a sentient weapon hellbent on escape after eons in chains. Together, “Doom and Gloom” embark on a vengeful quest to unlock the powerful abilities and destroy the Dread Lords once and for all in this 2D Action Metroidvania.</p>
+            <h1 id="game-title" class="text-4xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase leading-none transition-all duration-500">Firestone Online Idle RPG</h1>
+            <p id="game-desc" class="text-zinc-400 text-sm md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed font-light transition-all duration-500 line-clamp-3 md:line-clamp-none">Firestone: Online Idle RPG 是一款具有放置 RPG 机制的奇幻多人游戏。收集英雄🧙‍♂️、升级他们的装备和技能、派遣他们进行 AFK 战斗，或疯狂继续加强点击，以击败可怕的Boss！与公会好友聊天或参与 PVP⚔️——选择权在你手中！</p>
             
             <div class="glass-btn rounded-3xl p-6 md:p-8 mb-10 inline-block">
                 <p class="text-zinc-500 text-[10px] uppercase mb-4 tracking-[0.3em]">距离活动结束仅剩</p>
@@ -70,7 +93,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-                <a id="claim-btn" href="https://store.epicgames.com/zh-CN/p/doomblade-afdf9a" target="_blank" class="w-full md:w-auto bg-blue-600 text-white px-12 py-5 md:px-16 md:py-6 rounded-2xl font-black text-base md:text-lg hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/40 hover:-translate-y-1">立即领取</a>
+                <a id="claim-btn" href="https://store.epicgames.com/zh-CN/p/firestone-online-idle-rpg-bfd04b" target="_blank" class="w-full md:w-auto bg-blue-600 text-white px-12 py-5 md:px-16 md:py-6 rounded-2xl font-black text-base md:text-lg hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/40 hover:-translate-y-1">立即领取</a>
                 <a href="#upcoming" class="w-full md:w-auto glass-btn text-white px-8 py-5 md:px-10 md:py-6 rounded-2xl font-bold text-sm md:text-base hover:bg-white/10 transition-all">查看预告</a>
             </div>
         </div>
@@ -85,34 +108,34 @@
             
         <div class="bg-zinc-900/40 border border-white/5 rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-all duration-500">
             <div class="relative h-44 overflow-hidden">
-                <img src="https://cdn1.epicgames.com/spt-assets/69576a28f7154fe9a0dce97508da5163/firestone-online-idle-rpg-1vv9i.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <img src="https://cdn1.epicgames.com/spt-assets/fee7dc25f12c4400a5182c864fd89c66/arranger-a-rolepuzzling-adventure-17mu3.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-4 left-4">
                     <span class="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-400 border border-blue-400/20">下周预告</span>
                 </div>
             </div>
             <div class="p-6">
-                <h3 class="font-bold text-lg mb-2 text-zinc-100">Firestone Online Idle RPG</h3>
-                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">Firestone: Online Idle RPG 是一款具有放置 RPG 机制的奇幻多人游戏。收集英雄🧙‍♂️、升级他们的装备和技能、派遣他们进行 AFK 战斗，或疯狂继续加强点击，以击败可怕的Boss！与公会好友聊天或参与 PVP⚔️——选择权在你手中！</p>
+                <h3 class="font-bold text-lg mb-2 text-zinc-100">Arranger: A Role-Puzzling Adventure</h3>
+                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">在这个轻松却又需要开动脑筋的谜题世界里，踏上迷人的自我发现之旅，找到自己的方向。</p>
                 <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
                     <span class="uppercase opacity-50">开启时间</span>
-                    <span>2026年04月30日 15:00:00  (UTC+8)</span>
+                    <span>2026年05月07日 15:00:00  (UTC+8)</span>
                 </div>
             </div>
         </div>
     
         <div class="bg-zinc-900/40 border border-white/5 rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-all duration-500">
             <div class="relative h-44 overflow-hidden">
-                <img src="https://cdn1.epicgames.com/spt-assets/f09aaab3f10e4c18a2948a5b829bd84d/oddsparks-an-automation-adventure-117zi.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <img src="https://cdn1.epicgames.com/spt-assets/113ae486fe9040d89a7fc25a501dc3b9/trash-goblin-9bxry.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-4 left-4">
                     <span class="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-400 border border-blue-400/20">下周预告</span>
                 </div>
             </div>
             <div class="p-6">
-                <h3 class="font-bold text-lg mb-2 text-zinc-100">Oddsparks: An Automation Adventure</h3>
-                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">《Oddsparks: An Automation Adventure》是一款融合了自动化和实时战略的游戏，既适合自动化类型的死忠玩家，也适合对自动化充满好奇的玩家。</p>
+                <h3 class="font-bold text-lg mb-2 text-zinc-100">Trash Goblin</h3>
+                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">A wholesome, cosy shopkeeping game with no pressures, no stress, and endless good vibes! Uncover and clean trinkets then upcycle them to sell to endless colourful, quirky customers. Spend your savings to upgrade your shop, buy better tools, plus expand and customise your space.</p>
                 <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
                     <span class="uppercase opacity-50">开启时间</span>
-                    <span>2026年04月30日 15:00:00  (UTC+8)</span>
+                    <span>2026年05月07日 15:00:00  (UTC+8)</span>
                 </div>
             </div>
         </div>
@@ -130,7 +153,7 @@
     </footer>
 
     <script>
-        const games = [{"title":"DOOMBLADE","description":"Deep underground, Gloom Girl discovers DOOMBLADE, a sentient weapon hellbent on escape after eons in chains. Together, “Doom and Gloom” embark on a vengeful quest to unlock the powerful abilities and destroy the Dread Lords once and for all in this 2D Action Metroidvania.","imageUrl":"https://cdn1.epicgames.com/spt-assets/df87b66c9f3042ac83311bdc9b442884/doomblade-120wd.jpg","link":"https://store.epicgames.com/zh-CN/p/doomblade-afdf9a","endTime":"2026-04-30T15:00:00.000Z","startTime":"2026-04-23T15:00:00.000Z"}];
+        const games = [{"title":"Firestone Online Idle RPG","description":"Firestone: Online Idle RPG 是一款具有放置 RPG 机制的奇幻多人游戏。收集英雄🧙‍♂️、升级他们的装备和技能、派遣他们进行 AFK 战斗，或疯狂继续加强点击，以击败可怕的Boss！与公会好友聊天或参与 PVP⚔️——选择权在你手中！","imageUrl":"https://cdn1.epicgames.com/spt-assets/69576a28f7154fe9a0dce97508da5163/firestone-online-idle-rpg-1xeuq.png","link":"https://store.epicgames.com/zh-CN/p/firestone-online-idle-rpg-bfd04b","endTime":"2026-05-07T15:00:00.000Z","startTime":"2026-04-30T15:00:00.000Z"},{"title":"Oddsparks: An Automation Adventure","description":"《Oddsparks: An Automation Adventure》是一款融合了自动化和实时战略的游戏，既适合自动化类型的死忠玩家，也适合对自动化充满好奇的玩家。","imageUrl":"https://cdn1.epicgames.com/spt-assets/f09aaab3f10e4c18a2948a5b829bd84d/oddsparks-an-automation-adventure-117zi.png","link":"https://store.epicgames.com/zh-CN/p/oddsparks-58440c","endTime":"2026-05-07T15:00:00.000Z","startTime":"2026-04-30T15:00:00.000Z"}];
         let currentIndex = 0;
         let timerInterval;
         let slideInterval;
