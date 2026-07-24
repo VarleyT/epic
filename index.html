@@ -27,38 +27,15 @@
 <body>
     <section class="relative min-h-screen w-full flex items-center justify-center py-20 overflow-hidden">
         <div class="absolute inset-0 -z-10">
-            <img id="bg-image" src="https://cdn1.epicgames.com/spt-assets/eda0432529164b29b8a659d627d660e4/luto-14zrp.png" class="w-full h-full object-cover opacity-90 scale-105 transition-opacity duration-700">
+            <img id="bg-image" src="https://cdn1.epicgames.com/spt-assets/2b593b82aea84695b1608d74d3850ceb/foretales-offer-urvzn.jpg" class="w-full h-full object-cover opacity-90 scale-105 transition-opacity duration-700">
             <div class="absolute inset-0 hero-mask"></div>
         </div>
 
         <div class="text-center px-6 max-w-5xl relative z-10">
             <!-- Navigation Arrows -->
             
-            <button onclick="prevSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 md:-translate-x-20 p-4 slide-nav-btn text-white/50 hover:text-white hidden md:block">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                </svg>
-            </button>
-            <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 md:translate-x-20 p-4 slide-nav-btn text-white/50 hover:text-white hidden md:block">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-10 h-10 md:w-12 md:h-12">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                </svg>
-            </button>
-            
 
             <!-- Indicators -->
-            
-            <div class="flex justify-center gap-3 mb-8">
-                
-                    <div onclick="goToSlide(0)" class="indicator-track indicator-active" id="indicator-0">
-                        <div class="progress-bar" id="progress-0"></div>
-                    </div>
-                
-                    <div onclick="goToSlide(1)" class="indicator-track indicator-inactive" id="indicator-1">
-                        <div class="progress-bar" id="progress-1"></div>
-                    </div>
-                
-            </div>
             
 
             <div class="flex flex-wrap justify-center gap-4 mb-8">
@@ -75,12 +52,14 @@
                       <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-100 opacity-75"></span>
                       <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                     </span>
-                    <span id="end-time-text">截止时间: 2026年07月23日 15:00:00</span>
+                    <span id="end-time-text">截止时间: 2026年07月30日 15:00:00</span>
                 </div>
             </div>
             
-            <h1 id="game-title" class="text-4xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase leading-none transition-all duration-500">Luto</h1>
-            <p id="game-desc" class="text-zinc-400 text-sm md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed font-light transition-all duration-500 line-clamp-3 md:line-clamp-none">Luto is a psychological horror experience where you take on the role of someone unable to leave their home. Every attempt to escape will lead you deeper into the unknown, where nothing is as it seems and everything will test your senses.</p>
+            <h1 id="game-title" class="text-4xl md:text-8xl lg:text-9xl font-black mb-6 tracking-tighter uppercase leading-none transition-all duration-500">《Foretales》</h1>
+            <p id="game-desc" class="text-zinc-400 text-sm md:text-xl mb-8 max-w-3xl mx-auto leading-relaxed font-light transition-all duration-500 line-clamp-3 md:line-clamp-none">在这个剧情丰富的卡牌游戏中主宰世界的命运。
+
+你可以在《Foretales》中以独特视角展开冒险，通过多种玩法风格和故事线拯救世界……或带来毁灭。</p>
             
             <div class="glass-btn rounded-3xl p-6 md:p-8 mb-10 inline-block">
                 <p class="text-zinc-500 text-[10px] uppercase mb-4 tracking-[0.3em]">距离活动结束仅剩</p>
@@ -93,7 +72,7 @@
             </div>
 
             <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6">
-                <a id="claim-btn" href="https://store.epicgames.com/zh-CN/p/luto-0a4ab3" target="_blank" class="w-full md:w-auto bg-blue-600 text-white px-12 py-5 md:px-16 md:py-6 rounded-2xl font-black text-base md:text-lg hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/40 hover:-translate-y-1">立即领取</a>
+                <a id="claim-btn" href="https://store.epicgames.com/zh-CN/p/foretales-d6c5bd" target="_blank" class="w-full md:w-auto bg-blue-600 text-white px-12 py-5 md:px-16 md:py-6 rounded-2xl font-black text-base md:text-lg hover:bg-blue-500 transition-all shadow-2xl shadow-blue-600/40 hover:-translate-y-1">立即领取</a>
                 <a href="#upcoming" class="w-full md:w-auto glass-btn text-white px-8 py-5 md:px-10 md:py-6 rounded-2xl font-bold text-sm md:text-base hover:bg-white/10 transition-all">查看预告</a>
             </div>
         </div>
@@ -108,19 +87,34 @@
             
         <div class="bg-zinc-900/40 border border-white/5 rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-all duration-500">
             <div class="relative h-44 overflow-hidden">
-                <img src="https://cdn1.epicgames.com/spt-assets/2b593b82aea84695b1608d74d3850ceb/foretales-offer-urvzn.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <img src="https://cdn1.epicgames.com/spt-assets/f6da0031691c4d94a6e21255b18c1710/otxo-wtcug.jpg" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 <div class="absolute top-4 left-4">
                     <span class="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-400 border border-blue-400/20">下周预告</span>
                 </div>
             </div>
             <div class="p-6">
-                <h3 class="font-bold text-lg mb-2 text-zinc-100">《Foretales》</h3>
-                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">在这个剧情丰富的卡牌游戏中主宰世界的命运。
-
-你可以在《Foretales》中以独特视角展开冒险，通过多种玩法风格和故事线拯救世界……或带来毁灭。</p>
+                <h3 class="font-bold text-lg mb-2 text-zinc-100">OTXO</h3>
+                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">这是一款残暴又黑暗的快节奏肉鸽风格游戏，充满既精准又粗犷的枪战以及令时间弯曲的慢动作。在这款游戏中，玩家将进入一个迷雾重重的抽象豪宅，去拯救所爱的人。</p>
                 <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
                     <span class="uppercase opacity-50">开启时间</span>
-                    <span>2026年07月23日 15:00:00  (UTC+8)</span>
+                    <span>2026年07月30日 15:00:00  (UTC+8)</span>
+                </div>
+            </div>
+        </div>
+    
+        <div class="bg-zinc-900/40 border border-white/5 rounded-3xl overflow-hidden group hover:border-blue-500/50 transition-all duration-500">
+            <div class="relative h-44 overflow-hidden">
+                <img src="https://cdn1.epicgames.com/spt-assets/30d70e74bab1498686aba69969a6c19e/sol-cesto-1ara2.png" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute top-4 left-4">
+                    <span class="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-400 border border-blue-400/20">下周预告</span>
+                </div>
+            </div>
+            <div class="p-6">
+                <h3 class="font-bold text-lg mb-2 text-zinc-100">Sol Cesto</h3>
+                <p class="text-zinc-500 text-xs line-clamp-2 mb-4 leading-relaxed">Sol Cesto is a tactical and frantic roguelite where mastering your luck is key. Choose a hero, upgrade them using cursed teeth and magical items, and descend to the bottom of an ever-changing dungeon. In this dark world, every action has consequences…</p>
+                <div class="flex items-center justify-between text-[11px] font-mono text-zinc-400">
+                    <span class="uppercase opacity-50">开启时间</span>
+                    <span>2026年07月30日 15:00:00  (UTC+8)</span>
                 </div>
             </div>
         </div>
@@ -138,7 +132,7 @@
     </footer>
 
     <script>
-        const games = [{"title":"Luto","description":"Luto is a psychological horror experience where you take on the role of someone unable to leave their home. Every attempt to escape will lead you deeper into the unknown, where nothing is as it seems and everything will test your senses.","imageUrl":"https://cdn1.epicgames.com/spt-assets/eda0432529164b29b8a659d627d660e4/luto-14zrp.png","link":"https://store.epicgames.com/zh-CN/p/luto-0a4ab3","endTime":"2026-07-23T15:00:00.000Z","startTime":"2026-07-16T15:00:00.000Z"},{"title":"Echo Generation: Midnight Edition","description":"Lead a gang of kids to uncover spooky mysteries, battle creatures, and explore the supernatural side of your hometown in Echo Generation, a turn-based adventure set in the 90s.","imageUrl":"https://cdn1.epicgames.com/spt-assets/d85d8cbcd8bd43308d262ba62af5b5ce/echo-generation-midnight-edition-49ac1.jpg","link":"https://store.epicgames.com/zh-CN/p/echo-generation-midnight-edition-069026","endTime":"2026-07-23T15:00:00.000Z","startTime":"2026-07-16T15:00:00.000Z"}];
+        const games = [{"title":"《Foretales》","description":"在这个剧情丰富的卡牌游戏中主宰世界的命运。\n\n你可以在《Foretales》中以独特视角展开冒险，通过多种玩法风格和故事线拯救世界……或带来毁灭。","imageUrl":"https://cdn1.epicgames.com/spt-assets/2b593b82aea84695b1608d74d3850ceb/foretales-offer-urvzn.jpg","link":"https://store.epicgames.com/zh-CN/p/foretales-d6c5bd","endTime":"2026-07-30T15:00:00.000Z","startTime":"2026-07-23T15:00:00.000Z"}];
         let currentIndex = 0;
         let timerInterval;
         let slideInterval;
